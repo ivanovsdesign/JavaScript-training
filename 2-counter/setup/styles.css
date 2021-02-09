@@ -168,6 +168,7 @@ main {
 #value {
   font-size: 6rem;
   font-weight: bold;
+  transition-duration: 1s;
 }
 .btn {
   text-transform: uppercase;
