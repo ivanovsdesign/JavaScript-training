@@ -1,41 +1,31 @@
+let count = 0;
+
 const value = document.getElementById("value");
-const decrease = document.getElementById("decrease");
-const increase = document.getElementById("increase");
-const reset = document.getElementById("reset");
+const btns = document.querySelectorAll(".btn");
 
-var counter = 0;
+btns.forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+        const styles = e.currentTarget.classList;
+        if (styles.contains("decrease")) {
+            count --;
+        } else if (styles.contains("increase")) {
+            count ++;
+        } else {
+            count = 0;
+        }
+        if (count > 0) {
+            value.style.color = "green";
+        }
+        if (count < 0) {
+            value.style.color = "red";
+        }
+        if (count === 0) {
+            value.style.color = "hsla(209, 61%, 16%, 1)"
+        }
 
-decrease.addEventListener("click", () => {
-    counter--;
-    pushCounterValue(counter);
-    colorRange(counter);
+        value.innerHTML = count;
+    })
+
+    
 })
 
-increase.addEventListener("click", () => {
-    counter++;
-    pushCounterValue(counter);
-    colorRange(counter);
-})
-
-reset.addEventListener("click", () => {
-    counter = 0;
-    pushCounterValue(counter);
-    colorRange(counter);
-})
-
-
-
-
-function pushCounterValue(counter){
-    value.innerHTML = counter;
-}
-
-function colorRange(counter){
-    if (counter < 0){
-        value.style.color = "red";
-    }
-    else if (counter > 0){
-        value.style.color = "green";
-    }
-    else value.style.color = "hsla(209, 61%, 16%, 1)"
-}
