@@ -23,7 +23,7 @@ btns.forEach(function (btn) {
             value.style.color = "hsla(209, 61%, 16%, 1)"
         }
 
-        value.innerHTML = count;
+        value.textContent = count;
     })
 
     
