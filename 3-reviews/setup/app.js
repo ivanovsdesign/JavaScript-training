@@ -48,7 +48,8 @@ const   img = document.getElementById("person-img"),
         randomBtn = document.querySelector(".random-btn");
 
 //set starting item
-let currentItem = 0;
+let currentItem = 0,
+    logItem;
 
 //load initial item
 window.addEventListener("DOMContentLoaded", function () {
@@ -72,6 +73,12 @@ nextBtn.addEventListener("click", () => {
   showPerson(currentItem);
 })
 
+randomBtn.addEventListener("click", () => {
+  currentItem = getRandomInt(reviews);
+  console.log("currentItem = " + currentItem);
+  showPerson(currentItem);
+})
+
 //show a person based on item
 function showPerson(person) {
   const item = reviews[person];
@@ -79,4 +86,12 @@ function showPerson(person) {
   author.textContent = item.name;
   job.textContent = item.job;
   info.textContent = item.text;
+}
+
+function getRandomInt(array) {
+  logItem = Math.floor(Math.random() * array.length);
+  while (logItem == currentItem) {
+    logItem = Math.floor(Math.random() * array.length);
+  } 
+  return logItem;
 }
