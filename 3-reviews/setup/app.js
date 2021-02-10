@@ -38,41 +38,45 @@ const reviews = [
   },
 ];
 
-const prev = document.getElementById("prev");
-const next = document.getElementById("next");
-const rand = document.getElementById("rand");
+const   img = document.getElementById("person-img"),
+        author = document.querySelector("h4.author"),
+        job = document.getElementById("job"),
+        info = document.querySelector("p#info"),
 
-var switchNumber = 0;
+        prevBtn = document.querySelector(".prev-btn"),
+        nextBtn = document.querySelector(".next-btn"),
+        randomBtn = document.querySelector(".random-btn");
 
-next.addEventListener("click", () => {
-  if (switchNumber > reviews.length - 1) switchNumber = 0;
-  if (switchNumber < 0) switchNumber = reviews.length - 1;
-  itemSwitch(reviews, "next");
-  pushData(switchNumber);
-  console.log("next EventListener succeeded");
+//set starting item
+let currentItem = 0;
+
+//load initial item
+window.addEventListener("DOMContentLoaded", function () {
+  showPerson(currentItem);
 })
 
-rand.addEventListener("click", () => {
-  let randomInt = getRandomInt(4);
-  pushData(randomInt);
-})
-
-function pushData(id){
-  console.log(reviews.indexOf("id: 4"));
-  document.getElementById("person-img").src = reviews[id].img;
-  document.querySelector("h4.author").textContent = reviews[id].name;
-  document.getElementById("job").textContent = reviews[id].job;
-  document.querySelector("p#info").textContent = reviews[id].text;
-}
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-function itemSwitch(array, direction){
-  if (switchNumber >= 0 && switchNumber < array.length){
-    console.log("itemSwitch: switchNumber " + switchNumber);
-    if (direction == "next") switchNumber++;
-    else switchNumber--;
+prevBtn.addEventListener("click", () => {
+  currentItem--;
+  if (currentItem < 0) {
+    currentItem = reviews.length - 1;
   }
+  
+  showPerson(currentItem);
+})
+
+nextBtn.addEventListener("click", () => {
+  currentItem++;
+  if (currentItem > reviews.length - 1) {
+    currentItem = 0;
+  }
+  showPerson(currentItem);
+})
+
+//show a person based on item
+function showPerson(person) {
+  const item = reviews[person];
+  img.src = item.img;
+  author.textContent = item.name;
+  job.textContent = item.job;
+  info.textContent = item.text;
 }
