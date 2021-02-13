@@ -71,17 +71,77 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 10,
+    title: "borscht",
+    category: "dinner",
+    price: 39.99,
+    img: "./images/borscht.jpg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 const sectionCenter = document.querySelector(".section-center");
+const btnContainer = document.querySelector(".btn-container")
+// getting an array of unique categories
+const result = [];
+const map = new Map();
+for (const item of menu) {
+    if(!map.has(item.category)){
+        map.set(item.category, true);    // set any value to Map
+        result.push({
+            category: item.category
+        });
+    }
+}
 
 
 window.addEventListener("DOMContentLoaded", function() {
+  displaySortingButtons(result)
   displayMenuItems(menu);
 });
 
+var selector = ".filter-btn"
+
+window.addEventListener("click", function(e) {
+  var el = e.target;
+
+  if (!el.matches(selector)) {
+    return;
+  }
+  const category = el.dataset.id;
+  const menuCategory = menu.filter(function(menuItem) {
+    if (menuItem.category === category) {
+      return menuItem;
+    }
+  });
+    if (category === "all") {
+      displayMenuItems(menu);
+    }
+    else {
+      displayMenuItems(menuCategory);
+    }
+})
+
+// filterBtns.forEach(function(btn) {                 //doesn't work with dynamically created HTML
+//   btn.addEventListener("click", function(e) {
+//     const category = e.currentTarget.dataset.id;
+//     const menuCategory = menu.filter(function(menuItem) {
+//       if (menuItem.category === category) {
+//         return menuItem;
+//       }
+//     });
+//       if (category === "all") {
+//         displayMenuItems(menu);
+//       }
+//       else {
+//         displayMenuItems(menuCategory);
+//       }
+//   })
+// })
+
 function displayMenuItems(menuItems) {
-  let displayMenu = menu.map(function(item) {
+  let displayMenu = menuItems.map(function(item) {
     console.log(item)
     return `<article class="menu-item">
               <img src=${item.img} class="photo" alt=${item.title}>
@@ -97,5 +157,17 @@ function displayMenuItems(menuItems) {
 
 displayMenu = displayMenu.join("")
 sectionCenter.innerHTML = displayMenu;
+
+}
+
+function displaySortingButtons(buttonCategories) {
+  let displayBtns = buttonCategories.map(function(item) {
+    console.log("displaySortingButtons: ")
+    console.log(item)
+    return `<button class="filter-btn" type="button" data-id="${item.category}">${item.category}</button>`
+  })
+
+  displayBtns = displayBtns.join("")
+  btnContainer.innerHTML = '<button class="filter-btn" type="button" data-id="all">all</button>' + displayBtns
 
 }
