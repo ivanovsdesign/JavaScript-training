@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digits</title>
+</head>
+<body>
+    <style>
+        .choose-destiny {
+            padding: 5em;
+            margin: 1em;
+            background-color: darkgrey;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.5em;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition-duration: 2s;
+        }
+
+        .choose-destiny:hover {
+            background-color: darkorange;
+            transition-duration: 1s;
+        }
+
+        .choose-destiny#blue:hover {
+            background: rgb(0, 140, 255);
+        }
+
+        .choose-destiny#green:hover {
+            background-color: forestgreen;
+        }
+
+        .container {
+            display: grid;
+            place-items: center;
+            margin-top: 20em;
+        }
+
+        h1#screen {
+            text-transform: uppercase;
+            transition-duration: 1s;
+        }
+    </style>
+
+<div class="container">
+    <div class="inner">
+    <button class="choose-destiny" id="yellow">1</button>
+    <button class="choose-destiny" id="blue">2</button>
+    <button class="choose-destiny" id="green">3</button>
+    </div>
+    <h1 id="screen"></h1>
+</div>
+
+<script>
+    button = document.querySelectorAll(".choose-destiny");
+
+    button.forEach(function(btn) {
+        clearTimeout();
+        btn.addEventListener("click", () => {
+        document.getElementById('screen').textContent = "Стасюк, верни долг"
+        setTimeout(wipeData, 2000);
+    })
+    })
+        
+    function wipeData(){
+        document.getElementById('screen').textContent = '';
+    }
+
+    
+</script>
+
+</body>
+</html>
